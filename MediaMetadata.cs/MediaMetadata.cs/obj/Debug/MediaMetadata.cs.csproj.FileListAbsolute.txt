@@ -7,3 +7,12 @@ F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\D
 F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.exe
 F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.pdb
 F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.Form1.resources
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.exe.config
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.exe
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.pdb
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.exe
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.pdb
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.csprojResolveAssemblyReference.cache
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.fMetadata.resources
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.Properties.Resources.resources
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.csproj.GenerateResource.Cache

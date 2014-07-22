@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace MediaMetadata.cs
 {
-    public partial class Form1 : Form
+    public partial class fMetadata : Form
     {
         private static String Parent_Dir = @"Z:\Movies";
         private static String Match_Repository = @"Z:\Logs\Repository";
@@ -23,7 +23,7 @@ namespace MediaMetadata.cs
         private static bool Save_In_Folders = true;
         private static FileSystemWatcher watchAll;
 
-        public Form1()
+        public fMetadata()
         {
             Parent_Dir = "";
 
@@ -35,6 +35,9 @@ namespace MediaMetadata.cs
             cbxRepository.Checked = true;
             btnStop.Visible = false;
             btnStop.Enabled = false;
+            txtParentDir.Enabled = false;
+            txtRepositoryDir.Enabled = false;
+
             Update();
         }
 
@@ -45,6 +48,9 @@ namespace MediaMetadata.cs
 
             btnStop.Visible = true;
             btnStop.Enabled = true;
+
+            btnParentDir.Enabled = false;
+            btnRepository.Enabled = false;
 
             cbxRepository.Enabled = false;
             cbxFolders.Enabled = false;
@@ -97,7 +103,7 @@ namespace MediaMetadata.cs
             //enable the filewatcher to do some stuff
             watchAll.EnableRaisingEvents = true;
 
-            lblUpdate.Text = "In automation mode.";
+            upDateLabel("In automation mode.");
         }
 
         private static void OnFileImport(object source, FileSystemEventArgs e)
@@ -277,7 +283,10 @@ namespace MediaMetadata.cs
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            //stop the file watcher
             watchAll.EnableRaisingEvents = false;
+
+            //update the UI
             lblUpdate.Text = "Out of automation mode, waiting to be started.";
 
             btnStart.Visible = true;
@@ -286,10 +295,40 @@ namespace MediaMetadata.cs
             btnStop.Enabled = false;
             btnStop.Visible = false;
 
-            txtParentDir.Enabled = true;
-            txtRepositoryDir.Enabled = true;
+            cbxFolders.Enabled = true;
+            cbxRepository.Enabled = true;
 
             Update();
+        }
+
+        private void btnParentDir_Click(object sender, EventArgs e)
+        {
+            //create the folder browser and get the result
+            FolderBrowserDialog browser = new FolderBrowserDialog();
+            DialogResult result = browser.ShowDialog();
+
+            //if the OK button was clicked
+            if (result.Equals(DialogResult.OK))
+            {
+                //save the result in the parent directory text box
+                txtParentDir.Text = browser.SelectedPath;
+            }
+            //otherwise don't do anything
+        }
+
+        private void btnRepository_Click(object sender, EventArgs e)
+        {
+            //create the folder browser and get the result
+            FolderBrowserDialog browser = new FolderBrowserDialog();
+            DialogResult result = browser.ShowDialog();
+
+            //if the OK button was clicked
+            if (result.Equals(DialogResult.OK))
+            {
+                //save the result in the parent directory text box
+                txtRepositoryDir.Text = browser.SelectedPath;
+            }
+            //otherwise don't do anything
         }
     }
 }
