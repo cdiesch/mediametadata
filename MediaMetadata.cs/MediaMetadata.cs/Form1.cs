@@ -75,9 +75,6 @@ namespace MediaMetadata.cs
             if(!Directory.Exists(Match_Repository.Replace("Matched XMLs", "Notmatched Files\\")))
                 Directory.CreateDirectory(Match_Repository.Replace("Matched XMLs", "Notmatched Files\\"));
 
-            
-            Parent_Dir = txtParentDir.Text;
-
             watchAll = new FileSystemWatcher(Parent_Dir);
             watchAll.Filter = "";    //Add filter
             watchAll.Created += new FileSystemEventHandler(OnFileImport);   //Add the event action
@@ -121,8 +118,7 @@ namespace MediaMetadata.cs
             //if it's a directory
             if (Directory.Exists(fileName))
             {
-                Parent_Dir = addSlashes(fileName.Substring(0,fileName.LastIndexOf('\\')));
-                Regex yearReg = new Regex(Parent_Dir+@"\\(?<name>.*) \((?<year>[0-9]{4})\)");
+                Regex yearReg = new Regex(addSlashes(Parent_Dir)+@"\\*(?<name>.*) \((?<year>[0-9]{4})\)");
 
                 if (yearReg.IsMatch(fileName))
                 {
@@ -309,10 +305,9 @@ namespace MediaMetadata.cs
 
             //if the OK button was clicked
             if (result.Equals(DialogResult.OK))
-            {
                 //save the result in the parent directory text box
-                txtParentDir.Text = browser.SelectedPath;
-            }
+                Parent_Dir = txtParentDir.Text = browser.SelectedPath;
+
             //otherwise don't do anything
         }
 
@@ -324,10 +319,9 @@ namespace MediaMetadata.cs
 
             //if the OK button was clicked
             if (result.Equals(DialogResult.OK))
-            {
                 //save the result in the parent directory text box
-                txtRepositoryDir.Text = browser.SelectedPath;
-            }
+                Match_Repository = txtRepositoryDir.Text = browser.SelectedPath;    
+
             //otherwise don't do anything
         }
     }
