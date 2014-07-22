@@ -18,7 +18,6 @@ namespace MediaMetadata.cs
     {
         private static String Parent_Dir;
         private static String Match_Repository;
-        private static String Label_Text = "";
         private static bool Save_In_Repository = true;
         private static bool Save_In_Folders = true;
         private static FileSystemWatcher watchAll;
