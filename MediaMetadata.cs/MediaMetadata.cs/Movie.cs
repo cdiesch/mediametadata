@@ -145,21 +145,22 @@ namespace MediaMetadata.cs
                                               "<movie>\r\n" +
                                               "   <imdbTitle>\"{0}\"</imdbTitle>\r\n"+
                                               "   <title>\"{1}\"</title>\r\n" +
+                                              "   <runtime>{2}</runtime>\r\n"+
                                               "   <director>\r\n"+
-                                              "      <name>\"{2}\"</name>\r\n"+
-                                              "      <page>\"{3}\"</page>\r\n"+
+                                              "      <name>\"{3}\"</name>\r\n"+
+                                              "      <page>\"{4}\"</page>\r\n"+
                                               "   </director>\r\n"+
-                                              "   <summary>\"{4}\"</summary>\r\n" +
-                                              "   <rating>{5}</rating>\r\n" +
-                                              "   <numRated>{6}</numRated>\r\n"+
-                                              "   <mpr>\"{7}\"</mpr>\r\n" +
-                                              "   <mprCause>\"{8}\"</mprCause>\r\n" +
-                                              "   <year>{9}</year>\r\n" +
-                                              "   <imdbID>{10}</imdbID>\r\n" +
-                                              "   <imdbURL>\"{11}\"</imdbURL>\r\n"+
+                                              "   <summary>\"{5}\"</summary>\r\n" +
+                                              "   <rating>{6}</rating>\r\n" +
+                                              "   <numRated>{7}</numRated>\r\n"+
+                                              "   <mpr>\"{8}\"</mpr>\r\n" +
+                                              "   <mprCause>\"{9}\"</mprCause>\r\n" +
+                                              "   <year>{10}</year>\r\n" +
+                                              "   <imdbID>{11}</imdbID>\r\n" +
+                                              "   <imdbURL>\"{12}\"</imdbURL>\r\n"+
                                               "   <genres>\r\n", 
-                                              imdbTitle, title, director.Name, director.IMDBPage, summary, rating, numRated, mpr, mprCause, year, imdbID, imdbPage);
-                                              // {0}-----{1}---------{2}--------------{3}-----------{4}-----{5}------{6}-----{7}-----8}------{9}---{10}----{11}
+                                              imdbTitle, title, runtime, director.Name, director.IMDBPage, summary, rating, numRated, mpr, mprCause, year, imdbID, imdbPage);
+                                              // {0}-----{1------{2}--------------{3}-----------{4}---------{5}------{6}-------{7}----{8}-----{9}----{10}----{11}----{12}
                 for (int i = 0; i < genres.Count(); i++)
                 {
                     result += String.Format("      <genre>\r\n" +
