@@ -40,12 +40,12 @@
             this.btnParentDir = new System.Windows.Forms.Button();
             this.btnRepository = new System.Windows.Forms.Button();
             this.prgUpdate = new System.Windows.Forms.ProgressBar();
-            this.lblPercent = new System.Windows.Forms.Label();
+            this.lblPrg = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(424, 122);
+            this.btnStart.Location = new System.Drawing.Point(424, 135);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
@@ -72,7 +72,7 @@
             // btnStop
             // 
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnStop.Location = new System.Drawing.Point(424, 122);
+            this.btnStop.Location = new System.Drawing.Point(424, 135);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 5;
@@ -138,29 +138,28 @@
             // 
             // prgUpdate
             // 
-            this.prgUpdate.Location = new System.Drawing.Point(13, 122);
+            this.prgUpdate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.prgUpdate.Location = new System.Drawing.Point(13, 135);
             this.prgUpdate.Name = "prgUpdate";
-            this.prgUpdate.Size = new System.Drawing.Size(405, 23);
+            this.prgUpdate.Size = new System.Drawing.Size(353, 23);
             this.prgUpdate.TabIndex = 13;
             // 
-            // lblPercent
+            // lblPrg
             // 
-            this.lblPercent.AutoSize = true;
-            this.lblPercent.BackColor = System.Drawing.Color.Transparent;
-            this.lblPercent.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblPercent.Location = new System.Drawing.Point(206, 127);
-            this.lblPercent.Name = "lblPercent";
-            this.lblPercent.Size = new System.Drawing.Size(21, 17);
-            this.lblPercent.TabIndex = 14;
-            this.lblPercent.Text = "0%";
-            this.lblPercent.UseCompatibleTextRendering = true;
+            this.lblPrg.AutoSize = true;
+            this.lblPrg.BackColor = System.Drawing.Color.Transparent;
+            this.lblPrg.Location = new System.Drawing.Point(372, 140);
+            this.lblPrg.Name = "lblPrg";
+            this.lblPrg.Size = new System.Drawing.Size(21, 13);
+            this.lblPrg.TabIndex = 14;
+            this.lblPrg.Text = "0%";
             // 
             // fMetadata
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 155);
-            this.Controls.Add(this.lblPercent);
+            this.ClientSize = new System.Drawing.Size(511, 170);
+            this.Controls.Add(this.lblPrg);
             this.Controls.Add(this.prgUpdate);
             this.Controls.Add(this.btnRepository);
             this.Controls.Add(this.btnParentDir);
@@ -192,7 +191,7 @@
         private System.Windows.Forms.Button btnParentDir;
         private System.Windows.Forms.Button btnRepository;
         private System.Windows.Forms.ProgressBar prgUpdate;
-        private System.Windows.Forms.Label lblPercent;
+        private System.Windows.Forms.Label lblPrg;
 
     }
 }

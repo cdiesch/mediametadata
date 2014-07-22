@@ -75,6 +75,21 @@ namespace MediaMetadata.cs
             //if the user canceled the run
             else if (e.Cancelled)
                 upDateLabel("Canceled");
+
+            //if all is well
+            else
+            {
+                btnStop.Enabled = false;
+                btnStop.Visible = false;
+
+                btnStart.Enabled = true;
+                btnStart.Visible = true;
+
+                cbxFolders.Enabled = true;
+                cbxRepository.Enabled = true;
+                prgUpdate.Value = 0;
+                upDateLabel("Done!");
+            }
         }
 
         private void Data_Retriever_Update(object sender, ProgressChangedEventArgs e)
@@ -85,6 +100,8 @@ namespace MediaMetadata.cs
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            upDateLabel("Running...");
+
             btnStart.Enabled = false;
             btnStart.Visible = false;
 
@@ -147,9 +164,8 @@ namespace MediaMetadata.cs
             writeAndSaveMovie(fileName);
         }
 
-        private static void writeAndSaveMovie(object ofileName)
+        private static void writeAndSaveMovie(String fileName)
         {
-            String fileName = (string)ofileName;
             int year = 0;
             String movieName = "";
 
@@ -183,8 +199,8 @@ namespace MediaMetadata.cs
                 //remove "bad" characters from the movie title
                 movie.Title = removeDupSpaces(removePunc(movieName));
 
-                //if (!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
-                //{
+                if (!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
+                {
                     //try to match the movie
                     movie = search.getData(movieName, year);
 
@@ -224,7 +240,7 @@ namespace MediaMetadata.cs
                         writer.Write(movie.ToString());
                         writer.Close();
                     }
-                //}
+                }
             }
         }
 
@@ -234,7 +250,7 @@ namespace MediaMetadata.cs
             for (int i = 0; i < fileNames.Length; i++)
             {
                 //update the UI 
-                int percentComplete = (int)(((float)i / (float)fileNames.Length) * 100);
+                int percentComplete = (int)Math.Round(((float)i / (float)fileNames.Length) * 100);
                 if (percentComplete > highestPercent)
                 {
                     highestPercent = percentComplete;
@@ -282,49 +298,48 @@ namespace MediaMetadata.cs
                         //remove "bad" characters from the movie title
                         movie.Title = removeDupSpaces(removePunc(movieName));
 
-                        //if(!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
-                        //{
-                        //try to match the movie
-                        movie = search.getData(movieName, year);
-
-                        //if the movie was matched
-                        if (movie.WasMatched)
+                        if(!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
                         {
-                            if (Save_In_Folders)
+                            //try to match the movie
+                            movie = search.getData(movieName, year);
+
+                            //if the movie was matched
+                            if (movie.WasMatched)
                             {
-                                //save the folder in the file
-                                StreamWriter writer = new StreamWriter(folderSaveName, false, Encoding.UTF8);
-                                writer.Write(movie.ToString());
-                                writer.Close();
+                                if (Save_In_Folders)
+                                {
+                                    //save the folder in the file
+                                    StreamWriter writer = new StreamWriter(folderSaveName, false, Encoding.UTF8);
+                                    writer.Write(movie.ToString());
+                                    writer.Close();
+                                }
+
+
+                                if (Save_In_Repository)
+                                {
+                                    //save the xml file in the repository
+                                    StreamWriter writer = new StreamWriter(RepositorySaveName, false, Encoding.UTF8);
+                                    writer.Write(movie.ToString());
+                                    writer.Close();
+                                }
+
+                                //if there isn't already an image for the folder
+                                if (!File.Exists(folderImageName) && !String.IsNullOrEmpty(movie.ImageURL))
+                                {
+                                    //donload and save the image
+                                    WebClient client = new WebClient();
+                                    client.DownloadFile(movie.ImageURL, folderImageName);
+                                }
                             }
 
-
-                            if (Save_In_Repository)
+                            else
                             {
                                 //save the xml file in the repository
-                                StreamWriter writer = new StreamWriter(RepositorySaveName, false, Encoding.UTF8);
+                                StreamWriter writer = new StreamWriter(misMatchRepository, false);
                                 writer.Write(movie.ToString());
                                 writer.Close();
                             }
-
-                            //if there isn't already an image for the folder
-                            if (!File.Exists(folderImageName) && !String.IsNullOrEmpty(movie.ImageURL))
-                            {
-                                //donload and save the image
-                                WebClient client = new WebClient();
-                                client.DownloadFile(movie.ImageURL, folderImageName);
-                            }
                         }
-
-                        else
-                        {
-                            //save the xml file in the repository
-                            StreamWriter writer = new StreamWriter(misMatchRepository, false);
-                            writer.Write(movie.ToString());
-                            writer.Close();
-                        }
-
-                        //}
                     }
                 }
             }
@@ -413,10 +428,19 @@ namespace MediaMetadata.cs
 
         private void upDateLabel(String text)
         {
-            lblPercent.Text = text;
-            //half the progressbar width - hald the label width + the progress bar x
-            int x = ((prgUpdate.Width - lblPercent.Width) / 2) + prgUpdate.Location.X;
-            lblPercent.Left = x;
+            //half the progressbar width - hald the label width + the progress bar x  
+            Font font = new Font("Arial", 8, FontStyle.Regular);
+            //int textWidth = TextRenderer.MeasureText(text, font).Width;
+            //int textHeight = TextRenderer.MeasureText(text, font).Height;
+            //int x = ((prgUpdate.Width - textWidth) / 2) + prgUpdate.Left;
+            //int y = ((prgUpdate.Height - textHeight) / 2) + prgUpdate.Top;
+            lblPrg.Font = font;
+
+            //prgUpdate.Refresh();
+            //prgUpdate.CreateGraphics().DrawString(text, font, Brushes.Black, rect);
+
+            lblPrg.Text = text;
+            prgUpdate.Refresh();
             Update();
         }
 
