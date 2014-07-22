@@ -4,6 +4,16 @@
         <name>MediaMetadata.cs</name>
     </assembly>
     <members>
+        <member name="T:MediaMetadata.cs.fMetadata">
+            <summary>
+            A GUI for the program in the shape of a windows form object.
+            </summary>
+        </member>
+        <member name="M:MediaMetadata.cs.fMetadata.#ctor">
+            <summary>
+            Creates a new metadata form.
+            </summary>
+        </member>
         <member name="M:MediaMetadata.cs.fMetadata.simpleSubs(System.String)">
             Some movies on IMDb have different titles that are either extremely different, or they are a portion of the full name
             as a temperory solution, this function will replace some of those issues
@@ -29,6 +39,14 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="M:MediaMetadata.cs.IMDBSearch.getData(System.String,System.Int32)">
+            <summary>
+            Fetches the data for the given movie from IMDb's website using a scraper.
+            </summary>
+            <param name="movieTitle">The title of the movie to find.</param>
+            <param name="movieYear">The year the movie was released.</param>
+            <returns>A Movie object containing the found data.</returns>
         </member>
         <member name="M:MediaMetadata.cs.Program.Main">
             <summary>

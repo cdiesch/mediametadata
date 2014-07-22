@@ -13,6 +13,12 @@ namespace MediaMetadata.cs
     {
         private String baseUrl;
 
+        /// <summary>
+        /// Fetches the data for the given movie from IMDb's website using a scraper.
+        /// </summary>
+        /// <param name="movieTitle">The title of the movie to find.</param>
+        /// <param name="movieYear">The year the movie was released.</param>
+        /// <returns>A Movie object containing the found data.</returns>
         public Movie getData(String movieTitle, int movieYear)
         {
             baseUrl = "http://www.imdb.com/";
@@ -58,27 +64,33 @@ namespace MediaMetadata.cs
             //split the element apart
             Regex getMovieData = new Regex("\\<a href=\"/(?<link>.*)\"\\>(?<name>.*)\\</a\\>\\n +\\<span class=\"year_type\"\\>\\((?<year>[0-9]{4})");
 
+            //loop through all the elements
             for (int i = 0; i < elements.Length; i++)
             {
                 String element = elements[i];
                 Match m = getMovieData.Match(element);
 
+                //if the element doesn't match the regex
                 if (!getMovieData.IsMatch(element))
-                    continue;
+                    continue;   //skip it
  
                 String foundTitle = m.Groups["name"].Value.Replace("&#x27;", "\'");
                 int foundYear = Int32.Parse(m.Groups["year"].Value);
 
+                //if the elemt's name matches the movie name
                 if (isMatch(foundTitle, movieName) && !elements[i].Contains("(TV Episode)") && !elements[i].Contains("TV Series)") && (year == foundYear || year == 0))
                 {
+                    //record the immidate data
                     result.Title = movieName;
                     result.IMDBTitle = foundTitle;
                     result.IMDBURL = baseUrl + m.Groups["link"].Value;
                     result.Year = foundYear;
 
+                    //get the webepage text
                     WebClient client = new WebClient();
                     String HTMLPage = client.DownloadString(result.IMDBURL);
 
+                    //collect data from IMDb
                     result.Summary = getsummary(HTMLPage);
                     result.Genres = getGeneres(HTMLPage);
                     result.Actors = getActors(HTMLPage);
@@ -87,11 +99,13 @@ namespace MediaMetadata.cs
                     result.ImageURL = getImageURL(HTMLPage);
                     result.Director = getDirector(HTMLPage);
                     result.Runtime = getRunTime(HTMLPage);
+
+                    //take note of the match and exit loop.
                     result.WasMatched = true;
                     break;
                 }
             }
-
+            //return
             return result;
         }
 

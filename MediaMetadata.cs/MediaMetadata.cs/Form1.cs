@@ -14,6 +14,9 @@ using System.Text.RegularExpressions;
 
 namespace MediaMetadata.cs
 {
+    /// <summary>
+    /// A GUI for the program in the shape of a windows form object.
+    /// </summary>
     public partial class fMetadata : Form
     {
         private static String Parent_Dir;
@@ -23,6 +26,9 @@ namespace MediaMetadata.cs
         private static FileSystemWatcher watchAll;
         private BackgroundWorker Data_Retriever = new BackgroundWorker();
 
+        /// <summary>
+        /// Creates a new metadata form.
+        /// </summary>
         public fMetadata()
         {
             Parent_Dir = "";
