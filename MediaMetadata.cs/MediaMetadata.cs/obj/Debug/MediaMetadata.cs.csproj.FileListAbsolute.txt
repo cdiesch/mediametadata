@@ -1,0 +1,9 @@
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.exe.config
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.exe
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.pdb
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.csprojResolveAssemblyReference.cache
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.Properties.Resources.resources
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.csproj.GenerateResource.Cache
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.exe
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.pdb
+F:\Dropbox\Dropbox\Code\Fun\Media Centre\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.Form1.resources

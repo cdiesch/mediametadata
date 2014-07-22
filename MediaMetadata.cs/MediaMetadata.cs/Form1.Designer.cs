@@ -1,0 +1,159 @@
+﻿namespace MediaMetadata.cs
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnStart = new System.Windows.Forms.Button();
+            this.lblUpdate = new System.Windows.Forms.Label();
+            this.txtParentDir = new System.Windows.Forms.TextBox();
+            this.lblRepositoryDir = new System.Windows.Forms.Label();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.txtRepositoryDir = new System.Windows.Forms.TextBox();
+            this.lblMonitorDir = new System.Windows.Forms.Label();
+            this.cbxRepository = new System.Windows.Forms.CheckBox();
+            this.cbxFolders = new System.Windows.Forms.CheckBox();
+            this.SuspendLayout();
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(371, 122);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // lblUpdate
+            // 
+            this.lblUpdate.AutoSize = true;
+            this.lblUpdate.Location = new System.Drawing.Point(4, 122);
+            this.lblUpdate.Name = "lblUpdate";
+            this.lblUpdate.Size = new System.Drawing.Size(112, 13);
+            this.lblUpdate.TabIndex = 1;
+            this.lblUpdate.Text = "Loading Movie Data...";
+            // 
+            // txtParentDir
+            // 
+            this.txtParentDir.Location = new System.Drawing.Point(134, 12);
+            this.txtParentDir.Name = "txtParentDir";
+            this.txtParentDir.Size = new System.Drawing.Size(312, 20);
+            this.txtParentDir.TabIndex = 3;
+            // 
+            // lblRepositoryDir
+            // 
+            this.lblRepositoryDir.AutoSize = true;
+            this.lblRepositoryDir.Location = new System.Drawing.Point(4, 42);
+            this.lblRepositoryDir.Name = "lblRepositoryDir";
+            this.lblRepositoryDir.Size = new System.Drawing.Size(124, 13);
+            this.lblRepositoryDir.TabIndex = 8;
+            this.lblRepositoryDir.Text = "Repository for XML Files:";
+            // 
+            // btnStop
+            // 
+            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnStop.Location = new System.Drawing.Point(371, 122);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 5;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // txtRepositoryDir
+            // 
+            this.txtRepositoryDir.Location = new System.Drawing.Point(134, 39);
+            this.txtRepositoryDir.Name = "txtRepositoryDir";
+            this.txtRepositoryDir.Size = new System.Drawing.Size(311, 20);
+            this.txtRepositoryDir.TabIndex = 6;
+            // 
+            // lblMonitorDir
+            // 
+            this.lblMonitorDir.AutoSize = true;
+            this.lblMonitorDir.Location = new System.Drawing.Point(26, 15);
+            this.lblMonitorDir.Name = "lblMonitorDir";
+            this.lblMonitorDir.Size = new System.Drawing.Size(102, 13);
+            this.lblMonitorDir.TabIndex = 7;
+            this.lblMonitorDir.Text = "Directory to Monitor:";
+            // 
+            // cbxRepository
+            // 
+            this.cbxRepository.AutoSize = true;
+            this.cbxRepository.Location = new System.Drawing.Point(7, 65);
+            this.cbxRepository.Name = "cbxRepository";
+            this.cbxRepository.Size = new System.Drawing.Size(174, 17);
+            this.cbxRepository.TabIndex = 9;
+            this.cbxRepository.Text = "Save XML files in the repository";
+            this.cbxRepository.UseVisualStyleBackColor = true;
+            // 
+            // cbxFolders
+            // 
+            this.cbxFolders.AutoSize = true;
+            this.cbxFolders.Location = new System.Drawing.Point(7, 89);
+            this.cbxFolders.Name = "cbxFolders";
+            this.cbxFolders.Size = new System.Drawing.Size(259, 17);
+            this.cbxFolders.TabIndex = 10;
+            this.cbxFolders.Text = "Save XML files in the parent folders of the movies";
+            this.cbxFolders.UseVisualStyleBackColor = true;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(459, 155);
+            this.Controls.Add(this.cbxFolders);
+            this.Controls.Add(this.cbxRepository);
+            this.Controls.Add(this.lblRepositoryDir);
+            this.Controls.Add(this.lblMonitorDir);
+            this.Controls.Add(this.txtRepositoryDir);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.txtParentDir);
+            this.Controls.Add(this.lblUpdate);
+            this.Controls.Add(this.btnStart);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Label lblUpdate;
+        private System.Windows.Forms.TextBox txtParentDir;
+        private System.Windows.Forms.Label lblRepositoryDir;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.TextBox txtRepositoryDir;
+        private System.Windows.Forms.Label lblMonitorDir;
+        private System.Windows.Forms.CheckBox cbxRepository;
+        private System.Windows.Forms.CheckBox cbxFolders;
+
+    }
+}
+
