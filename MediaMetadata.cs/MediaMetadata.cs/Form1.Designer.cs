@@ -141,14 +141,16 @@
             this.prgUpdate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.prgUpdate.Location = new System.Drawing.Point(13, 135);
             this.prgUpdate.Name = "prgUpdate";
-            this.prgUpdate.Size = new System.Drawing.Size(353, 23);
+            this.prgUpdate.Size = new System.Drawing.Size(405, 23);
             this.prgUpdate.TabIndex = 13;
             // 
             // lblPrg
             // 
+            this.lblPrg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPrg.AutoSize = true;
             this.lblPrg.BackColor = System.Drawing.Color.Transparent;
-            this.lblPrg.Location = new System.Drawing.Point(372, 140);
+            this.lblPrg.Location = new System.Drawing.Point(10, 119);
             this.lblPrg.Name = "lblPrg";
             this.lblPrg.Size = new System.Drawing.Size(21, 13);
             this.lblPrg.TabIndex = 14;

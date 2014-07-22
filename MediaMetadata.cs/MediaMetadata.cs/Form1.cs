@@ -32,6 +32,9 @@ namespace MediaMetadata.cs
             InitializeComponent();
             InitializeBackgroundWorker();
 
+            setProgressBar();
+
+
             txtRepositoryDir.Text = Match_Repository;
             txtParentDir.Text = Parent_Dir;
             cbxFolders.Checked = true;
@@ -57,6 +60,16 @@ namespace MediaMetadata.cs
             Data_Retriever.WorkerReportsProgress = true;
         }
 
+        private void setProgressBar()
+        {
+            String text = lblPrg.Text;
+            Font font = new Font("Arial", 8, FontStyle.Regular);
+            int textWidth = TextRenderer.MeasureText(text, font).Width;
+            //half the progressbar width - hald the label width + the progress bar x  
+            int x = ((prgUpdate.Width - textWidth) / 2) + prgUpdate.Left;
+            lblPrg.Left = x;
+        }
+
         private void Data_Retriever_GetMovieData(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -79,16 +92,8 @@ namespace MediaMetadata.cs
             //if all is well
             else
             {
-                btnStop.Enabled = false;
-                btnStop.Visible = false;
-
-                btnStart.Enabled = true;
-                btnStart.Visible = true;
-
-                cbxFolders.Enabled = true;
-                cbxRepository.Enabled = true;
                 prgUpdate.Value = 0;
-                upDateLabel("Done!");
+                upDateLabel("Auto mode.");
             }
         }
 
@@ -428,16 +433,14 @@ namespace MediaMetadata.cs
 
         private void upDateLabel(String text)
         {
-            //half the progressbar width - hald the label width + the progress bar x  
             Font font = new Font("Arial", 8, FontStyle.Regular);
-            //int textWidth = TextRenderer.MeasureText(text, font).Width;
-            //int textHeight = TextRenderer.MeasureText(text, font).Height;
-            //int x = ((prgUpdate.Width - textWidth) / 2) + prgUpdate.Left;
-            //int y = ((prgUpdate.Height - textHeight) / 2) + prgUpdate.Top;
-            lblPrg.Font = font;
+            int textWidth = TextRenderer.MeasureText(text, font).Width;
 
-            //prgUpdate.Refresh();
-            //prgUpdate.CreateGraphics().DrawString(text, font, Brushes.Black, rect);
+            //half the progressbar width - hald the label width + the progress bar x  
+            int x = ((prgUpdate.Width - textWidth) / 2) + prgUpdate.Left;
+            
+            lblPrg.Font = font;
+            lblPrg.Left = x;
 
             lblPrg.Text = text;
             prgUpdate.Refresh();

@@ -16,3 +16,9 @@ F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\Me
 F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.fMetadata.resources
 F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.Properties.Resources.resources
 F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.csproj.GenerateResource.Cache
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.XML
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.exe.manifest
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.application
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.TrustInfo.xml
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.exe.manifest
+F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.application

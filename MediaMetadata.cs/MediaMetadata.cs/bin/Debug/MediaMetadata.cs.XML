@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaMetadata.cs</name>
+    </assembly>
+    <members>
+        <member name="M:MediaMetadata.cs.fMetadata.simpleSubs(System.String)">
+            Some movies on IMDb have different titles that are either extremely different, or they are a portion of the full name
+            as a temperory solution, this function will replace some of those issues
+            
+            TODO: Allow fuzziness by checking to see if the entire name before a punctuation mark matches or the entire name on 
+            the IMDb or Movie Name side matches. This should only be allowed if the movie name does not appear on the results page
+            at all.
+            
+        </member>
+        <member name="F:MediaMetadata.cs.fMetadata.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MediaMetadata.cs.fMetadata.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MediaMetadata.cs.fMetadata.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:MediaMetadata.cs.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:MediaMetadata.cs.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MediaMetadata.cs.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MediaMetadata.cs.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
