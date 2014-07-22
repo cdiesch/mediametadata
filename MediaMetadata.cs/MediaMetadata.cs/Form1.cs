@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using System.Net;
@@ -22,12 +23,14 @@ namespace MediaMetadata.cs
         private static bool Save_In_Repository = true;
         private static bool Save_In_Folders = true;
         private static FileSystemWatcher watchAll;
+        private BackgroundWorker Data_Retriever = new BackgroundWorker();
 
         public fMetadata()
         {
             Parent_Dir = "";
 
             InitializeComponent();
+            InitializeBackgroundWorker();
 
             txtRepositoryDir.Text = Match_Repository;
             txtParentDir.Text = Parent_Dir;
@@ -39,6 +42,45 @@ namespace MediaMetadata.cs
             txtRepositoryDir.Enabled = false;
 
             Update();
+        }
+
+        // Set up the BackgroundWorker object by  
+        // attaching event handlers.  
+        private void InitializeBackgroundWorker()
+        {
+            Data_Retriever.DoWork += new DoWorkEventHandler(Data_Retriever_GetMovieData);
+
+            Data_Retriever.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Data_Retriever_WorkCompleted);
+            Data_Retriever.WorkerSupportsCancellation = true;
+
+            Data_Retriever.ProgressChanged += new ProgressChangedEventHandler(Data_Retriever_Update);
+            Data_Retriever.WorkerReportsProgress = true;
+        }
+
+        private void Data_Retriever_GetMovieData(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            //convert the argument to a string
+            string[] movieNames = (String[])e.Argument;
+            //get movie data
+            writeAndSaveMovie(movieNames, worker, e);
+        }
+
+        private void Data_Retriever_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //if there is an error
+            if (e.Error != null)
+                MessageBox.Show(e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //if the user canceled the run
+            else if (e.Cancelled)
+                upDateLabel("Canceled");
+        }
+
+        private void Data_Retriever_Update(object sender, ProgressChangedEventArgs e)
+        {
+            prgUpdate.Value = e.ProgressPercentage;
+            upDateLabel(prgUpdate.Value+"%");
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -89,18 +131,14 @@ namespace MediaMetadata.cs
                 Console.WriteLine(ex.Message);
             }
 
-            
-            foreach (String dir in Directory.GetDirectories(Parent_Dir))
-            {
-                String lblText = "Getting and saving information for: " + dir.Substring(dir.LastIndexOf('\\')+1);
-                upDateLabel(lblText);
-                writeAndSaveMovie(dir);
-            }
+            //get all the sub directories
+            String[] directories = Directory.GetDirectories(Parent_Dir);
+
+            //run the background process
+            Data_Retriever.RunWorkerAsync(directories);
 
             //enable the filewatcher to do some stuff
             watchAll.EnableRaisingEvents = true;
-
-            upDateLabel("In automation mode.");
         }
 
         private static void OnFileImport(object source, FileSystemEventArgs e)
@@ -109,8 +147,9 @@ namespace MediaMetadata.cs
             writeAndSaveMovie(fileName);
         }
 
-        private static void writeAndSaveMovie(String fileName)
+        private static void writeAndSaveMovie(object ofileName)
         {
+            String fileName = (string)ofileName;
             int year = 0;
             String movieName = "";
 
@@ -118,7 +157,7 @@ namespace MediaMetadata.cs
             //if it's a directory
             if (Directory.Exists(fileName))
             {
-                Regex yearReg = new Regex(addSlashes(Parent_Dir)+@"\\*(?<name>.*) \((?<year>[0-9]{4})\)");
+                Regex yearReg = new Regex(addSlashes(Parent_Dir) + @"\\*(?<name>.*) \((?<year>[0-9]{4})\)");
 
                 if (yearReg.IsMatch(fileName))
                 {
@@ -128,7 +167,7 @@ namespace MediaMetadata.cs
                 }
 
                 else
-                    movieName = fileName.Substring(fileName.LastIndexOf('\\')+1);
+                    movieName = fileName.Substring(fileName.LastIndexOf('\\') + 1);
 
                 //update the UI
                 Label_Text = Working_Label_Text + " " + movieName;
@@ -144,11 +183,11 @@ namespace MediaMetadata.cs
                 //remove "bad" characters from the movie title
                 movie.Title = removeDupSpaces(removePunc(movieName));
 
-                //if(!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
+                //if (!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
                 //{
                     //try to match the movie
                     movie = search.getData(movieName, year);
-                    
+
                     //if the movie was matched
                     if (movie.WasMatched)
                     {
@@ -160,7 +199,7 @@ namespace MediaMetadata.cs
                             writer.Close();
                         }
 
-                        
+
                         if (Save_In_Repository)
                         {
                             //save the xml file in the repository
@@ -177,7 +216,7 @@ namespace MediaMetadata.cs
                             client.DownloadFile(movie.ImageURL, folderImageName);
                         }
                     }
-                    
+
                     else
                     {
                         //save the xml file in the repository
@@ -185,8 +224,109 @@ namespace MediaMetadata.cs
                         writer.Write(movie.ToString());
                         writer.Close();
                     }
-                    
                 //}
+            }
+        }
+
+        private void writeAndSaveMovie(String[] fileNames, BackgroundWorker worker, DoWorkEventArgs e)
+        {
+            int highestPercent = 0;
+            for (int i = 0; i < fileNames.Length; i++)
+            {
+                //update the UI 
+                int percentComplete = (int)(((float)i / (float)fileNames.Length) * 100);
+                if (percentComplete > highestPercent)
+                {
+                    highestPercent = percentComplete;
+                    Data_Retriever.ReportProgress(percentComplete);
+                }
+
+                String fileName = fileNames[i];
+                String movieName = "";
+                //if the user stoped
+                if (Data_Retriever.CancellationPending)
+                {
+                    e.Cancel = true;
+                }
+
+                //otherwise
+                else
+                {
+                    //do work
+                    int year = 0;
+
+                    IMDBSearch search = new IMDBSearch();
+                    //if it's a directory
+                    if (Directory.Exists(fileName))
+                    {
+                        Regex yearReg = new Regex(addSlashes(Parent_Dir) + @"\\*(?<name>.*) \((?<year>[0-9]{4})\)");
+
+                        if (yearReg.IsMatch(fileName))
+                        {
+                            Match m = yearReg.Match(fileName);
+                            year = Int32.Parse(m.Groups["year"].Value);
+                            movieName = m.Groups["name"].Value;
+                        }
+
+                        else
+                            movieName = fileName.Substring(fileName.LastIndexOf('\\') + 1);
+
+                        String RepositorySaveName = Match_Repository + "\\" + movieName + ".xml";
+                        String misMatchRepository = Match_Repository.Replace("Matched XMLs", "Notmatched Files\\") + movieName + ".txt";
+                        String folderSaveName = fileName + "\\" + movieName + ".xml";
+                        String folderImageName = fileName + "\\folder.jpg";
+
+                        Movie movie = new Movie();
+                        //do some simple substitutions
+                        movieName = simpleSubs(movieName);
+                        //remove "bad" characters from the movie title
+                        movie.Title = removeDupSpaces(removePunc(movieName));
+
+                        //if(!File.Exists(RepositorySaveName) && !File.Exists(folderSaveName))
+                        //{
+                        //try to match the movie
+                        movie = search.getData(movieName, year);
+
+                        //if the movie was matched
+                        if (movie.WasMatched)
+                        {
+                            if (Save_In_Folders)
+                            {
+                                //save the folder in the file
+                                StreamWriter writer = new StreamWriter(folderSaveName, false, Encoding.UTF8);
+                                writer.Write(movie.ToString());
+                                writer.Close();
+                            }
+
+
+                            if (Save_In_Repository)
+                            {
+                                //save the xml file in the repository
+                                StreamWriter writer = new StreamWriter(RepositorySaveName, false, Encoding.UTF8);
+                                writer.Write(movie.ToString());
+                                writer.Close();
+                            }
+
+                            //if there isn't already an image for the folder
+                            if (!File.Exists(folderImageName) && !String.IsNullOrEmpty(movie.ImageURL))
+                            {
+                                //donload and save the image
+                                WebClient client = new WebClient();
+                                client.DownloadFile(movie.ImageURL, folderImageName);
+                            }
+                        }
+
+                        else
+                        {
+                            //save the xml file in the repository
+                            StreamWriter writer = new StreamWriter(misMatchRepository, false);
+                            writer.Write(movie.ToString());
+                            writer.Close();
+                        }
+
+                        //}
+                    }
+                }
             }
         }
 
@@ -273,17 +413,21 @@ namespace MediaMetadata.cs
 
         private void upDateLabel(String text)
         {
-            lblUpdate.Text = text;
+            lblPercent.Text = text;
+            //half the progressbar width - hald the label width + the progress bar x
+            int x = ((prgUpdate.Width - lblPercent.Width) / 2) + prgUpdate.Location.X;
+            lblPercent.Left = x;
             Update();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            //stop the file watcher
+            //stop the background worker
+            this.Data_Retriever.CancelAsync();
             watchAll.EnableRaisingEvents = false;
 
             //update the UI
-            lblUpdate.Text = "Out of automation mode, waiting to be started.";
+            upDateLabel("Canceled.");
 
             btnStart.Visible = true;
             btnStart.Enabled = true;

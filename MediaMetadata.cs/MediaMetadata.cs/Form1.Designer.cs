@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMetadata));
             this.btnStart = new System.Windows.Forms.Button();
-            this.lblUpdate = new System.Windows.Forms.Label();
             this.txtParentDir = new System.Windows.Forms.TextBox();
             this.lblRepositoryDir = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
@@ -40,6 +39,8 @@
             this.cbxFolders = new System.Windows.Forms.CheckBox();
             this.btnParentDir = new System.Windows.Forms.Button();
             this.btnRepository = new System.Windows.Forms.Button();
+            this.prgUpdate = new System.Windows.Forms.ProgressBar();
+            this.lblPercent = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
@@ -51,15 +52,6 @@
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // lblUpdate
-            // 
-            this.lblUpdate.AutoSize = true;
-            this.lblUpdate.Location = new System.Drawing.Point(4, 122);
-            this.lblUpdate.Name = "lblUpdate";
-            this.lblUpdate.Size = new System.Drawing.Size(112, 13);
-            this.lblUpdate.TabIndex = 1;
-            this.lblUpdate.Text = "Loading Movie Data...";
             // 
             // txtParentDir
             // 
@@ -144,11 +136,32 @@
             this.btnRepository.UseVisualStyleBackColor = true;
             this.btnRepository.Click += new System.EventHandler(this.btnRepository_Click);
             // 
+            // prgUpdate
+            // 
+            this.prgUpdate.Location = new System.Drawing.Point(13, 122);
+            this.prgUpdate.Name = "prgUpdate";
+            this.prgUpdate.Size = new System.Drawing.Size(405, 23);
+            this.prgUpdate.TabIndex = 13;
+            // 
+            // lblPercent
+            // 
+            this.lblPercent.AutoSize = true;
+            this.lblPercent.BackColor = System.Drawing.Color.Transparent;
+            this.lblPercent.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblPercent.Location = new System.Drawing.Point(206, 127);
+            this.lblPercent.Name = "lblPercent";
+            this.lblPercent.Size = new System.Drawing.Size(21, 17);
+            this.lblPercent.TabIndex = 14;
+            this.lblPercent.Text = "0%";
+            this.lblPercent.UseCompatibleTextRendering = true;
+            // 
             // fMetadata
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 155);
+            this.Controls.Add(this.lblPercent);
+            this.Controls.Add(this.prgUpdate);
             this.Controls.Add(this.btnRepository);
             this.Controls.Add(this.btnParentDir);
             this.Controls.Add(this.cbxFolders);
@@ -158,7 +171,6 @@
             this.Controls.Add(this.txtRepositoryDir);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.txtParentDir);
-            this.Controls.Add(this.lblUpdate);
             this.Controls.Add(this.btnStart);
             this.Name = "fMetadata";
             this.Text = "Metadata Downloader";
@@ -170,7 +182,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Label lblUpdate;
         private System.Windows.Forms.TextBox txtParentDir;
         private System.Windows.Forms.Label lblRepositoryDir;
         private System.Windows.Forms.Button btnStop;
@@ -180,6 +191,8 @@
         private System.Windows.Forms.CheckBox cbxFolders;
         private System.Windows.Forms.Button btnParentDir;
         private System.Windows.Forms.Button btnRepository;
+        private System.Windows.Forms.ProgressBar prgUpdate;
+        private System.Windows.Forms.Label lblPercent;
 
     }
 }
