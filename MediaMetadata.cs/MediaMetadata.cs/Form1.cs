@@ -16,10 +16,9 @@ namespace MediaMetadata.cs
 {
     public partial class fMetadata : Form
     {
-        private static String Parent_Dir = @"Z:\Movies";
-        private static String Match_Repository = @"Z:\Logs\Repository";
+        private static String Parent_Dir;
+        private static String Match_Repository;
         private static String Label_Text = "";
-        private static String Working_Label_Text = "Getting and saving informatino for ";
         private static bool Save_In_Repository = true;
         private static bool Save_In_Folders = true;
         private static FileSystemWatcher watchAll;
@@ -105,6 +104,28 @@ namespace MediaMetadata.cs
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            //if either directory doesn't exist
+            if (!Directory.Exists(Parent_Dir) || !Directory.Exists(Match_Repository))
+            {
+                //tell the user there's an issue
+                String messageBox = "The following director";
+
+                if (!Directory.Exists(Parent_Dir) && !Directory.Exists(Match_Repository))
+                    messageBox += "ies don't exist:\n   "+Parent_Dir+"\n   "+Match_Repository;
+
+                else if (!Directory.Exists(Parent_Dir))
+                    messageBox += "y doesn't exist:\n   "+Parent_Dir;
+                
+                else if (!Directory.Exists(Match_Repository))
+                    messageBox += "y doesn't exist:\n   " + Match_Repository;
+
+                messageBox += "\nPlease select a valid Directory and try again.";
+
+                MessageBox.Show(messageBox, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
             upDateLabel("Running...");
 
             btnStart.Enabled = false;
@@ -189,9 +210,6 @@ namespace MediaMetadata.cs
 
                 else
                     movieName = fileName.Substring(fileName.LastIndexOf('\\') + 1);
-
-                //update the UI
-                Label_Text = Working_Label_Text + " " + movieName;
 
                 String RepositorySaveName = Match_Repository + "\\" + movieName + ".xml";
                 String misMatchRepository = Match_Repository.Replace("Matched XMLs", "Notmatched Files\\") + movieName + ".txt";
