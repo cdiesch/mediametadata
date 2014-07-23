@@ -51,8 +51,7 @@ namespace MediaMetadata.cs
             Update();
         }
 
-        // Set up the BackgroundWorker object by  
-        // attaching event handlers.  
+        // Set up the BackgroundWorker object by attaching event handlers.  
         private void InitializeBackgroundWorker()
         {
             Data_Retriever.DoWork += new DoWorkEventHandler(Data_Retriever_GetMovieData);
@@ -441,7 +440,6 @@ namespace MediaMetadata.cs
          * TODO: Allow fuzziness by checking to see if the entire name before a punctuation mark matches or the entire name on 
          * the IMDb or Movie Name side matches. This should only be allowed if the movie name does not appear on the results page
          * at all.
-         * 
          */
         private static String simpleSubs(String movieName)
         {
