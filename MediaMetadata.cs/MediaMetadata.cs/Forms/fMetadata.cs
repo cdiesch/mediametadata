@@ -51,28 +51,8 @@ namespace MediaMetadata.cs
             Update();
         }
 
-        // Set up the BackgroundWorker object by attaching event handlers.  
-        private void InitializeBackgroundWorker()
-        {
-            Data_Retriever.DoWork += new DoWorkEventHandler(Data_Retriever_GetMovieData);
-
-            Data_Retriever.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Data_Retriever_WorkCompleted);
-            Data_Retriever.WorkerSupportsCancellation = true;
-
-            Data_Retriever.ProgressChanged += new ProgressChangedEventHandler(Data_Retriever_Update);
-            Data_Retriever.WorkerReportsProgress = true;
-        }
-
-        private void setProgressBar()
-        {
-            String text = lblPrg.Text;
-            Font font = new Font("Arial", 8, FontStyle.Regular);
-            int textWidth = TextRenderer.MeasureText(text, font).Width;
-            //half the progressbar width - hald the label width + the progress bar x  
-            int x = ((prgUpdate.Width - textWidth) / 2) + prgUpdate.Left;
-            lblPrg.Left = x;
-        }
-
+        //-------------------------------------------------Event Methods-------------------------------------------------
+        #region Events
         private void Data_Retriever_GetMovieData(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -188,6 +168,55 @@ namespace MediaMetadata.cs
             watchAll.EnableRaisingEvents = true;
         }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            //stop the background worker
+            this.Data_Retriever.CancelAsync();
+            watchAll.EnableRaisingEvents = false;
+
+            //update the UI
+            upDateLabel("Canceled.");
+
+            btnStart.Visible = true;
+            btnStart.Enabled = true;
+
+            btnStop.Enabled = false;
+            btnStop.Visible = false;
+
+            cbxFolders.Enabled = true;
+            cbxRepository.Enabled = true;
+
+            Update();
+        }
+
+        private void btnParentDir_Click(object sender, EventArgs e)
+        {
+            //create the folder browser and get the result
+            FolderBrowserDialog browser = new FolderBrowserDialog();
+            DialogResult result = browser.ShowDialog();
+
+            //if the OK button was clicked
+            if (result.Equals(DialogResult.OK))
+                //save the result in the parent directory text box
+                Parent_Dir = txtParentDir.Text = browser.SelectedPath;
+
+            //otherwise don't do anything
+        }
+
+        private void btnRepository_Click(object sender, EventArgs e)
+        {
+            //create the folder browser and get the result
+            FolderBrowserDialog browser = new FolderBrowserDialog();
+            DialogResult result = browser.ShowDialog();
+
+            //if the OK button was clicked
+            if (result.Equals(DialogResult.OK))
+                //save the result in the parent directory text box
+                Match_Repository = txtRepositoryDir.Text = browser.SelectedPath;
+
+            //otherwise don't do anything
+        }
+
         private static void OnFileImport(object source, FileSystemEventArgs e)
         {
             String fileName = e.FullPath;
@@ -269,6 +298,31 @@ namespace MediaMetadata.cs
                     }
                 }
             }
+        }
+        #endregion
+
+        //---------------------------------------------------Helpers----------------------------------------------------
+        #region Helpers
+        // Set up the BackgroundWorker object by attaching event handlers.  
+        private void InitializeBackgroundWorker()
+        {
+            Data_Retriever.DoWork += new DoWorkEventHandler(Data_Retriever_GetMovieData);
+
+            Data_Retriever.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Data_Retriever_WorkCompleted);
+            Data_Retriever.WorkerSupportsCancellation = true;
+
+            Data_Retriever.ProgressChanged += new ProgressChangedEventHandler(Data_Retriever_Update);
+            Data_Retriever.WorkerReportsProgress = true;
+        }
+
+        private void setProgressBar()
+        {
+            String text = lblPrg.Text;
+            Font font = new Font("Arial", 8, FontStyle.Regular);
+            int textWidth = TextRenderer.MeasureText(text, font).Width;
+            //half the progressbar width - hald the label width + the progress bar x  
+            int x = ((prgUpdate.Width - textWidth) / 2) + prgUpdate.Left;
+            lblPrg.Left = x;
         }
 
         private void writeAndSaveMovie(String[] fileNames, BackgroundWorker worker, DoWorkEventArgs e)
@@ -433,6 +487,7 @@ namespace MediaMetadata.cs
             return result;
         }
 
+
         /**
          * Some movies on IMDb have different titles that are either extremely different, or they are a portion of the full name
          * as a temperory solution, this function will replace some of those issues
@@ -467,54 +522,6 @@ namespace MediaMetadata.cs
             prgUpdate.Refresh();
             Update();
         }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            //stop the background worker
-            this.Data_Retriever.CancelAsync();
-            watchAll.EnableRaisingEvents = false;
-
-            //update the UI
-            upDateLabel("Canceled.");
-
-            btnStart.Visible = true;
-            btnStart.Enabled = true;
-
-            btnStop.Enabled = false;
-            btnStop.Visible = false;
-
-            cbxFolders.Enabled = true;
-            cbxRepository.Enabled = true;
-
-            Update();
-        }
-
-        private void btnParentDir_Click(object sender, EventArgs e)
-        {
-            //create the folder browser and get the result
-            FolderBrowserDialog browser = new FolderBrowserDialog();
-            DialogResult result = browser.ShowDialog();
-
-            //if the OK button was clicked
-            if (result.Equals(DialogResult.OK))
-                //save the result in the parent directory text box
-                Parent_Dir = txtParentDir.Text = browser.SelectedPath;
-
-            //otherwise don't do anything
-        }
-
-        private void btnRepository_Click(object sender, EventArgs e)
-        {
-            //create the folder browser and get the result
-            FolderBrowserDialog browser = new FolderBrowserDialog();
-            DialogResult result = browser.ShowDialog();
-
-            //if the OK button was clicked
-            if (result.Equals(DialogResult.OK))
-                //save the result in the parent directory text box
-                Match_Repository = txtRepositoryDir.Text = browser.SelectedPath;    
-
-            //otherwise don't do anything
-        }
+        #endregion
     }
 }
