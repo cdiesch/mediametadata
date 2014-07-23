@@ -22,3 +22,7 @@ F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\Me
 F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.TrustInfo.xml
 F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.exe.manifest
 F:\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.application
+C:\Users\Kyle\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.exe.config
+C:\Users\Kyle\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\bin\Debug\MediaMetadata.cs.XML
+C:\Users\Kyle\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.exe
+C:\Users\Kyle\Documents\GitHub\mediametadata\MediaMetadata.cs\MediaMetadata.cs\obj\Debug\MediaMetadata.cs.pdb

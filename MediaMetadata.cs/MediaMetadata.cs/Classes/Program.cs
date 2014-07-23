@@ -10,6 +10,7 @@ namespace MediaMetadata.cs
     {
         /// <summary>
         /// The main entry point for the application.
+        /// Kyle was here. TEST. Will be removed with next push
         /// </summary>
         [STAThread]
         static void Main()
